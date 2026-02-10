@@ -251,6 +251,39 @@ Generated text descriptions are saved in `train/` or `test/` subdirectories, cor
 4.  **Project Files:** This project's code.
 5.  **UNIX-based Terminal:** For SSH and `scp`.
 6.  **Hugging Face Account & Token:** Required to download models, especially "gated" ones. Generate a token with `read` permissions from [Hugging Face Tokens](https://huggingface.co/settings/tokens).
+7.  **GPU + CUDA Drivers:** vLLM requires a CUDA-capable NVIDIA GPU and compatible drivers (e.g., A100 on Athena).
+
+## Optional Quickstart (Local, No SLURM)
+
+If you want to run locally (e.g., a workstation with an NVIDIA GPU), you can skip the SLURM steps and run directly:
+
+1.  **Create a Python environment (3.10):**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate
+    ```
+
+2.  **Install PyTorch + vLLM (match your CUDA version), then project deps:**
+    ```bash
+    pip install wheel
+    # Example for CUDA 12.1
+    pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu121
+    pip install vllm
+    pip install -r requirements.txt
+    ```
+
+3.  **Provide Hugging Face auth (if needed):**
+    Create a `.env` file in the project root:
+    ```
+    HF_TOKEN="hf_YOUR_HUGGINGFACE_TOKEN"
+    ```
+
+4.  **Run the pipeline:**
+    ```bash
+    python main.py
+    ```
+
+Outputs will be written under `data/<dataset>/text/<experiment_key>/` (plus metrics CSVs).
 
 ## Step 1: Initial Login to Athena and Grant Verification
 
