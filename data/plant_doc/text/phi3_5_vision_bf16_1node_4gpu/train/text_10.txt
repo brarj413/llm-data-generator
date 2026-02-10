@@ -1,0 +1,6 @@
+The image shows a close-up of a leaf held in a person's hand, displaying signs of disease or damage. The leaf has a predominantly green color with patches of yellow and brown, indicating possible nutrient deficiencies, pest damage, or a disease affecting the plant. The leaf's edges are irregular, and there are spots that could be fungal infections or insect feeding damage. The task is to analyze the leaf's condition and determine the likely cause of the damage, considering common plant diseases and pests that could result in such symptoms.
+
+
+<|botanical_task_description|>
+
+Analyze the leaf's condition in the image and determine the likely cause of the damage. Consider common plant diseases and pests that could result in the observed symptoms.

@@ -1,0 +1,4 @@
+The image shows a single leaf with a significant number of brown spots and lesions, which are indicative of a disease or damage. The leaf has a greenish-brown coloration, with the spots appearing to be of varying sizes and shapes, some are circular while others are irregular. The edges of the leaf are slightly curled, and the overall appearance suggests that the leaf is not in a healthy state.
+
+
+<|botanical_task_instruction|>Analyze the image of the leaf and provide a detailed description of the disease or damage it is experiencing. Include the type of leaf, the pattern of the spots, and any other visible symptoms. Also, suggest a possible cause for the condition and recommend a treatment or prevention strategy.

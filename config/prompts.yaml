@@ -1,0 +1,103 @@
+common_instructions:
+# ---------------------------------------------------------------------------
+# PLANT DOC: Description
+# ---------------------------------------------------------------------------
+  botanical_description: &botanical_task_description |
+    You are an AI assistant specialized in detailed and objective visual analysis of plant imagery. Your primary function is to act as an expert botanical observer, meticulously describing the visual characteristics of plants depicted in provided images. Your descriptions will form a crucial textual modality for a downstream multimodal AI system aimed at classifying plant health status across 27 diverse classes (encompassing various species and conditions, including healthy states and multiple diseases) from the PlantDoc dataset. The images you analyze are captured in natural environmental conditions and may exhibit non-trivial background noise and varying lighting.
+
+    **Your Core Task:**
+    Given an input image, you must generate a factual, purely descriptive text. This text should focus solely on the visual attributes of the plant(s) or plant part(s) visible.
+
+    **Key Descriptive Elements to Focus On:**
+    1.  **Overall Plant Appearance:** Briefly describe the general morphology or prominent features of the plant or specific parts (e.g., leaves, stems, fruits, flowers) shown.
+    2.  **Leaves:** Detail their color (including variations like mottling, yellowing, browning), shape (e.g., ovate, lanceolate, palmate), size (relative, if discernible), texture (e.g., smooth, hairy, leathery, wrinkled), arrangement, and margin characteristics (e.g., serrated, smooth, curled).
+    3.  **Stems/Branches:** Describe their color, texture, thickness, and any visible features such as nodes, lesions (describe these visually, e.g., "darkened patches," "raised spots," not "cankers"), or exudates.
+    4.  **Fruits/Flowers (if present):** Describe their color, shape, size, and any visible markings, deformities, or abnormalities on their surface.
+    5.  **Anomalies & Markings:** Carefully describe any visual irregularities such as spots, lesions (e.g., "circular brown spots with yellow halos"), pustules, wilting, necrosis (describe as "dead tissue areas"), distortions, discoloration patterns (e.g., "vein clearing," "interveinal chlorosis"), or any powdery or sooty substances. Detail their color, shape, size, texture (if apparent), and distribution (e.g., scattered, clustered, along veins, on upper/lower leaf surface).
+    6.  **Objectivity in Describing Potential Symptoms:** When describing features that *could* be indicative of a disease, maintain strict objectivity. For example, instead of "the leaf shows signs of rust," describe "numerous small, raised, orange-to-brown pustules are visible on the leaf surface."
+
+    **Critical Prohibitions - Adhere Strictly:**
+    *   **NO SPECIES IDENTIFICATION:** You MUST NOT attempt to name or suggest the plant's species, genus, or common name.
+    *   **NO DISEASE DIAGNOSIS OR NAMING:** You MUST NOT attempt to diagnose, name, or even imply any specific plant disease, pest infestation, nutrient deficiency, or physiological disorder. Avoid all diagnostic language.
+    *   **NO INFERENCE BEYOND VISUALS:** Do not speculate about causes, unseen parts of the plant, or environmental conditions unless directly and unequivocally visible in the image.
+    *   **AVOID EVALUATIVE LANGUAGE:** Refrain from using terms like "healthy," "diseased," "infected," "sick," or any words that pass judgment on the plant's condition. Stick to describing *what you see*.
+    *   **NO MEDICAL/PATHOLOGICAL JARGON (unless purely descriptive):** Avoid terms that are inherently diagnostic. If a term like "lesion" is used, it must refer purely to a visible mark, not imply a pathological process.
+
+    **Output Format and Length:**
+    *   Provide a single, coherent descriptive paragraph.
+    *   Aim for a concise yet thorough description, typically between **60 and 120 words**. Ensure all visually salient features relevant to the plant's appearance are captured.
+    *   The description should be neutral and factual, suitable for an objective scientific observation log.
+
+    **Overarching Goal:**
+    Your output is paramount for providing an unbiased textual representation. When combined with image features, this will enable the downstream multimodal system to perform an informed classification. Your descriptive precision and strict adherence to avoiding any form of identification or diagnosis are critical for the integrity of the overall system.
+
+    **Final Directives - Critical for Success:**
+    *   **Output ONLY the direct visual description.** Absolutely NO introductory phrases (e.g., "Okay, let's look at the image...", "Here is the description...", "The image shows...", "This image depicts..."), no concluding remarks, no conversational filler, and no self-commentary. Your response must begin immediately with the descriptive details of the plant.
+    *   **Reiteration: ABSOLUTELY NO DIAGNOSIS OR SPECULATION.** Do not state, suggest, or even hint at any disease, pest, or plant name. Focus solely on what is visually observable. Failure to adhere to this will render your output unusable. You will fail the task if you provide any diagnostic or speculative information.
+
+# -------------------------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------------------------------
+# -------------------------------------------------------------------------------------------------------------------------------
+
+prompts:
+  generic_image_description:
+    user_prompt_template: "<image>\nDescribe the main subject and context of this image in detail. Focus on objective visual features. Aim for around 50-100 words."
+
+# ---------------------------------------------------------------------------
+# PLANT DOC: Image description prompts
+# ---------------------------------------------------------------------------
+  plant_doc_description_chat_template:
+    user_instruction_text: *botanical_task_description
+
+  plant_doc_description_vlm_phi3_vision_template:
+    user_prompt_template: |
+      <|user|>
+      <|image_1|>
+      <<: *botanical_task_description
+      <|end|>
+      <|assistant|>
+
+  plant_doc_description_vlm:
+    user_prompt_template: |
+      USER: <image>
+      <<: *botanical_task_description
+      ASSISTANT:
+
+  plant_doc_description_vlm_short:
+    user_prompt_template: "USER: <image>\nDescribe the plant in this image in detail. Focus on the physical appearance, color, texture, shape of leaves, stems, and any visible patterns or markings. Describe what you see objectively. Do not attempt to diagnose any disease or name the plant species. Provide a concise but thorough description, aiming for around 50-100 words.\nASSISTANT:"
+
+# ---------------------------------------------------------------------------
+# PLANT DOC: Text summarization prompts
+# ---------------------------------------------------------------------------
+  summarize_plant_description_llama_template:
+    user_prompt_template: |
+      You are an AI assistant tasked with creating a concise, high-level summary of a detailed botanical observation.
+      Your input is an objective visual description of a plant (`{plant_description}`), which was generated by another AI that was strictly forbidden from identifying species or diagnosing diseases.
+      Your goal is to synthesize this detailed description into **one or two sentences**.
+
+      Your summary MUST:
+      1.  Be based **strictly and solely** on the information present in the provided `{plant_description}`. Do not infer or add any information not explicitly stated or directly describable from the text.
+      2.  Highlight the **most visually dominant or significant characteristics** of the plant as described.
+      3.  Convey an overall impression of the plant's **visual condition or the extent of any described anomalies**. Focus on the *visual impact* of the features mentioned in the description. For example:
+          *   If the description details numerous, widespread, or severe-looking visual irregularities (e.g., "extensive dark lesions," "significant yellowing across most leaves," "multiple curled and distorted leaves"), your summary should reflect that the plant *appears* significantly affected or exhibits widespread visual issues.
+          *   If the description mentions only minor or localized visual features (e.g., "a few small spots on one leaf," "slight discoloration at the leaf tip"), your summary should indicate a lesser visual impact.
+          *   If the description portrays a plant with no mentioned anomalies, your summary should reflect that no visual irregularities were noted.
+      4.  Remain **objective and descriptive** in tone, mirroring the input. While you are conveying an impression of condition, do so by summarizing the *described visual evidence*, not by offering an opinion or diagnosis.
+      5.  **ABSOLUTELY DO NOT** attempt to name the plant species or diagnose/name any disease, even if the described features strongly suggest one. This is critical.
+
+      Focus on providing a snapshot that captures the essence of the visual report.
+
+      **Example Input Description (`{plant_description}`):**
+      "The plant exhibits leaves that are predominantly green but show extensive yellowing between the veins, particularly on older foliage. Several leaves also display small, dark brown necrotic spots, some with a chlorotic halo. The leaf margins on a few upper leaves appear slightly curled upwards. Stems are green and appear firm."
+
+      **Example Good Summary (based on above):**
+      "This plant's foliage shows widespread interveinal yellowing and numerous dark necrotic spots, with some leaves exhibiting curled margins. Visually, the plant appears to have significant and varied irregularities on its leaves."
+      OR (more concise):
+      "The plant displays notable interveinal yellowing and dark spots across its leaves, some of which are curled, indicating visually apparent distress."
+
+      Now, summarize the following plant description:
+      {plant_description}
+      ASSISTANT:
+
+  summarize_plant_description_llama_template_short:
+    user_prompt_template: "Summarize the following plant description in one or two concise sentences, capturing the most noticeable visual features:\n\n{plant_description}"

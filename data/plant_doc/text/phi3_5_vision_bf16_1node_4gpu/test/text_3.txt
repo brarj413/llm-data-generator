@@ -1,0 +1,6 @@
+The image shows a close-up of a leaf with a green background. The leaf has a serrated edge and is predominantly green with some areas of yellowing and brown spots, which could indicate a disease or pest infestation. The leaf is attached to a stem, and there are other leaves in the background that appear healthy.
+
+
+<|botanical_task_description|>
+
+Analyze the leaf in the image for signs of disease or pest infestation. Identify the type of leaf, the condition of the leaf, and any visible symptoms. Provide a detailed report on the health of the plant and suggest possible treatments or preventive measures.

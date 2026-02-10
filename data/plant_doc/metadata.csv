@@ -1,0 +1,21 @@
+target_number,target_name,image_path,split,text_file_name
+0,apple scab leaf,data/plant_doc/images/train/img_1.jpg,train,img_1_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_2.jpg,train,img_2_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_3.jpg,train,img_3_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_4.jpg,train,img_4_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_5.jpg,train,img_5_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_6.jpg,train,img_6_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_7.jpg,train,img_7_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_8.jpg,train,img_8_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_9.jpg,train,img_9_desc.txt
+0,apple scab leaf,data/plant_doc/images/train/img_10.jpg,train,img_10_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_1.jpg,test,img_1_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_2.jpg,test,img_2_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_3.jpg,test,img_3_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_4.jpg,test,img_4_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_5.jpg,test,img_5_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_6.jpg,test,img_6_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_7.jpg,test,img_7_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_8.jpg,test,img_8_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_9.jpg,test,img_9_test_desc.txt
+0,apple scab leaf,data/plant_doc/images/test/img_10.jpg,test,img_10_test_desc.txt

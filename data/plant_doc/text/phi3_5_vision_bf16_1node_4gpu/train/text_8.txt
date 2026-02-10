@@ -1,0 +1,6 @@
+The image shows a close-up of a leaf with multiple brown spots and lesions. The leaf has a greenish-yellow color with a rough texture, and the spots vary in size and shape, some are circular, and others are irregular. The edges of the leaf are slightly curled, and there are visible veins running through the leaf. The background is blurred, but it appears to be a natural environment with greenery.
+
+
+<|botanical_task_description|>
+
+Analyze the leaf's condition and identify the type of disease or pest that may be causing the damage.

@@ -1,0 +1,6 @@
+dataset_name: "plant_doc"
+num_classes: 27
+metadata_filename: "metadata.csv"
+image_subfolder: "images"
+text_subfolder: "text_generated_vllm"
+image_size: [299, 299]
